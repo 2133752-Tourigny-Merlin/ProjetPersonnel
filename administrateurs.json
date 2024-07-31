@@ -1,0 +1,10 @@
+{
+    "projets":{
+        "titre": "test titre",
+        "description": "Test",
+        "date": "2023-02-01",
+        "image_url": "/s/s/s",
+        "image_uuid": "ijsudfnog237",
+        "type" : "Sculptures"
+  }
+}

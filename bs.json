@@ -1,0 +1,41 @@
+{
+    "projets":[{
+        "id": 0,
+        "titre": "test",
+        "date": "test",
+        "type": 0,
+        "id_image": 0,
+        "__v": 0
+      }],
+    "types":[{
+        "id":0,
+        "nom": "Sculptures",
+        "__v": 0
+      },
+      {
+        "id":1,
+        "nom": "Dessins",
+        "__v": 0
+      },
+      {
+        "id":2,
+        "nom": "Peintures",
+        "__v": 0
+      }
+    ],
+    "administrateurs":[{
+        "id": 0,
+        "nom": "admin",
+        "prenom": "",
+        "code": "0000",
+        "mdp": "qwerty1234",
+        "__v": 0
+      }],
+      "images":[{
+        "id": 0,
+        "nom": "admin",
+        "UUID": "",
+        "URL": "0000",
+        "__v": 0
+      }]
+}

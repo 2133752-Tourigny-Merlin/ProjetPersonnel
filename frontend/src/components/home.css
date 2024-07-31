@@ -1,0 +1,77 @@
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Add a max-width if you have a constraint */
+    margin: 0 auto; /* Center the nav within the header */
+  }
+  
+  nav h2 {
+    margin: 0;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-left: 1rem;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Main content styles */
+  main {
+    padding: 3rem 1rem 4rem 1rem; /* Adjust padding to avoid overlap with header and footer */
+    margin-top: 60px; /* Offset the top margin for the header */
+  }
+  
+  /* Cards section styles */
+  .cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    width: 30%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    margin-top: 0;
+  }
+  
+  /* Footer styles */
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 1rem 0;
+    z-index: 1000;
+  }
+  
