@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../api'; // Import the Axios instance
-import ProjetComposant from './projet.composants';
-import './home.css';
+import axios from '../../api'; // Import the Axios instance
+import ProjetComposant from './projetAdmin.composants';
+import '../home.css';
 
 interface Project {
   _id: string;
@@ -11,7 +11,7 @@ interface Project {
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
-export const Dessins = () => {
+export const Sculptures = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export const Dessins = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/api/Projet/type/Dessin');
+        const response = await axios.get('/api/Projet/type/Sculpture');
         console.log('Fetched projects:', response.data);
         // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
@@ -40,18 +40,19 @@ export const Dessins = () => {
   console.log('Projects state:', projects);
     return (
         <>
-            <header>
-              <nav>
-                <h2>Peintures</h2>
-                <ul>
-                  <li><a href="/">Accueil</a></li>
-                  <li><a href="/Sculptures">Sculptures</a></li>
-                  <li><a href="/Dessins">Dessins</a></li>
-                  <li><a href="/Peintures">Peintures</a></li>
-                </ul>
-                <h3>Merlin Tourigny</h3>
-              </nav>
-            </header>
+          <header>
+            <nav>
+              <h2>Sculptures</h2>
+              <ul>
+                <li><a href="/admin">Accueil</a></li>
+                <li><a href="/SculpturesAdmin">Sculptures</a></li>
+                <li><a href="/DessinsAdmin">Dessins</a></li>
+                <li><a href="/PeinturesAdmin">Peintures</a></li>
+                <li><a href="/Ajout">Ajouter</a></li>
+              </ul>
+              <h3>Merlin Tourigny</h3>
+            </nav>
+          </header>
             <main>
               <section className="cards">
                 {Array.isArray(projects) && projects.length > 0 ? (
@@ -75,6 +76,6 @@ export const Dessins = () => {
             </footer>
           </>
           );
-  };
+};
   
-export default Dessins;
+export default Sculptures;

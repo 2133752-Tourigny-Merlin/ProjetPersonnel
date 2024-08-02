@@ -1,17 +1,19 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-// **** Interface Image **** //
-const supportedTypes = ["png", "jpeg", "jpg"] as const;
+// Supported types
+const supportedTypes = ["image/png", "image/jpeg", "image/jpg"] as const;
 
+// Interface for Image
 export interface IImage {
+  _id?: string,
   nom: string;
   taille: number;
   chemin: string;
   dateCreation?: Date;
-  type: "png" | "jpeg" | "jpg";
+  type: typeof supportedTypes[number]; // Use the union type of supportedTypes
 }
 
-// **** ImageSchema **** //
+// Image Schema
 const ImageSchema = new Schema<IImage>({
   nom: {
     type: String,
@@ -44,7 +46,6 @@ const ImageSchema = new Schema<IImage>({
   },
 });
 
-
-// **** Exportation **** //
+// Export the model
 mongoose.pluralize(null);
 export default model<IImage>('images', ImageSchema);

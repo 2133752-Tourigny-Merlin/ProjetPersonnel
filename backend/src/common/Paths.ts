@@ -10,6 +10,7 @@ export default {
     GetAll: '/', //good
     GetOne: "/:id", //good
     GetRecent: "/recent/:nb", //good
+    GetType: "/type/:type", //good
     Add: '/', //good
     Update: '/', //good
     Delete: '/:id', //good
@@ -18,6 +19,7 @@ export default {
     Base: '/image', //good
     GetAll: '/', //good
     GetOne: "/:id", //good
+    GetRecent: "/recent/last",
     Add: '/',
     Delete: '/:id',
   },

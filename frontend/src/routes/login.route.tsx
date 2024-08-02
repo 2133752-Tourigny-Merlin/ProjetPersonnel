@@ -44,7 +44,7 @@ useEffect(() => {
     // maybe trigger a loading screen
     return;
     }
-    if (user) navigate('/');
+    if (user) navigate('/admin');
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [user, loading]);
 
@@ -92,7 +92,7 @@ return (
             <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-            "S'authentifier à X"
+            "S'authentifier à admin"
             </Typography>
             <Box
             component="form"

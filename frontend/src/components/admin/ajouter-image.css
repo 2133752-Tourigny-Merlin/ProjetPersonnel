@@ -1,0 +1,14 @@
+input[type=file]::file-selector-button {
+    display:none;
+}
+
+.divEspace{
+    margin-top: 25px; 
+    display:flex;
+    float: right;
+    margin-left: 10px !important;
+}
+
+.container{
+    padding: 20px;
+}

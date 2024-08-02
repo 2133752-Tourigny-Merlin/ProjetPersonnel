@@ -1,12 +1,12 @@
 import React from 'react';
-import './home.css';
+import '../home.css';
 
-export const Ajout = () => {
+export const Modifier = () => {
   return (
     <>
         <header>
           <nav>
-            <h2>Ajouter</h2>
+            <h2>Modifier</h2>
             <ul>
               <li><a href="/">Accueil</a></li>
               <li><a href="/Sculptures">Sculptures</a></li>
@@ -25,4 +25,4 @@ export const Ajout = () => {
       );
 };
 
-export default Ajout;
+export default Modifier;

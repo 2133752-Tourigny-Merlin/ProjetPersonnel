@@ -32,13 +32,25 @@ async function getOne(id: string): Promise<IProjet | null> {
 /**
  * Lire 3 derniers projets.
  */
-async function GetRecent(nb: number): Promise<IProjet[]> {
+async function getRecent(nb: number): Promise<IProjet[]> {
   await connect(process.env.MONGODB_URI!, { dbName: 'Projet' });
   const projets = await Projet.find().sort({ date: -1 }).limit(nb);
   console.log(projets);
   console.log("getRecentRepo");
   return projets;
 }
+
+/**
+ * Lire les projets selon leurs types
+ */
+async function getType(type: string): Promise<IProjet[]> {
+  await connect(process.env.MONGODB_URI!, { dbName: 'Projet' });
+  const projets = await Projet.find({ type }).exec();
+  console.log(projets);
+  console.log("getType");
+  return projets;
+}
+
 
 /**
  * Ajoute un admin.
@@ -80,7 +92,8 @@ export default {
     persists,
     getAll,
     getOne,
-    GetRecent,
+    getRecent,
+    getType,
     add,
     update,
     delete_,

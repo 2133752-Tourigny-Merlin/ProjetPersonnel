@@ -1,6 +1,6 @@
 // src/components/projet.composants.tsx
 import React from 'react';
-import './home.css';
+import '../home.css';
 
 interface ProjectProps {
   titre: string;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../api'; // Import the Axios instance
-import ProjetComposant from './projet.composants';
-import './home.css';
+import axios from '../../api'; // Import the Axios instance
+import ProjetComposant from './projetAdmin.composants';
+import '../home.css';
 
 interface Project {
   _id: string;
@@ -12,7 +12,7 @@ interface Project {
   type: "Sculpture" | "Dessin" | "Peinture";
 }
 
-export const Home = () => {
+export const HomeAdmin = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,18 +42,19 @@ export const Home = () => {
 
   return (
     <>
-      <header>
-        <nav>
-          <h2>Accueil</h2>
-          <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/Sculptures">Sculptures</a></li>
-            <li><a href="/Dessins">Dessins</a></li>
-            <li><a href="/Peintures">Peintures</a></li>
-          </ul>
-          <h3>Merlin Tourigny</h3>
-        </nav>
-      </header>
+         <header>
+            <nav>
+              <h2>Accueil</h2>
+              <ul>
+                <li><a href="/admin">Accueil</a></li>
+                <li><a href="/SculpturesAdmin">Sculptures</a></li>
+                <li><a href="/DessinsAdmin">Dessins</a></li>
+                <li><a href="/PeinturesAdmin">Peintures</a></li>
+                <li><a href="/Ajout">Ajouter</a></li>
+              </ul>
+              <h3>Merlin Tourigny</h3>
+            </nav>
+          </header>
       <main>
         <section className="cards">
           {Array.isArray(projects) && projects.length > 0 ? (
@@ -79,4 +80,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default HomeAdmin;

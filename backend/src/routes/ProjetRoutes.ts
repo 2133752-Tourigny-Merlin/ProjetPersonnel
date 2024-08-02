@@ -35,6 +35,16 @@ async function getRecent(req: IReq, res: IRes) {
 }
 
 /**
+ * Get dernier 3 projets
+ */
+async function getType(req: IReq, res: IRes) {
+  console.log("getType");
+  const type = req.params.type;
+  const Projet = await ProjetService.getType(type);
+  return res.status(HttpStatusCodes.OK).json({ Projet });
+}
+
+/**
  * Add un projet.
  */
 async function add(req: IReq<{Projet: IProjet}>, res: IRes) {
@@ -68,6 +78,7 @@ export default {
   getAll,
   getOne,
   getRecent,
+  getType,
   add,
   update,
   delete_,

@@ -1,10 +1,10 @@
-import Modifier from '../components/admin/modifier.composants';
+import DessinsAdmin from '../components/admin/dessinsAdmin.composants';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 
-export const ModifierRoute = () => {
+export const DessinsAdminRoute = () => {
 const [user, loading] = useAuthState(auth);
 const navigate = useNavigate();
 
@@ -16,5 +16,5 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [user, loading]);
 
-return <Modifier />;
+return <DessinsAdmin />;
 };

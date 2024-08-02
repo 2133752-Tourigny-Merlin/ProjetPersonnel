@@ -7,8 +7,7 @@ export interface IProjet {
     titre: string;
     description?: string; // Make description optional
     date: Date; // Use Date type for date
-    image_url: string;
-    image_uuid: string;
+    id_image: string;
     type: "Sculpture" | "Dessin" | "Peinture";
     _id?: string;
 }
@@ -18,8 +17,7 @@ const ProjetSchema = new Schema<IProjet>({
     titre: { type: String, required: [true, "Le titre du projet est obligatoire"] },
     description: { type: String }, // Optional field
     date: { type: Date, required: [true, "La date du projet est obligatoire"] }, // Use Date type
-    image_url: { type: String, required: [true, "L'URL de l'image est obligatoire"] },
-    image_uuid: { type: String, required: [true, "L'UUID de l'image est obligatoire"] },
+    id_image: { type: String, required: [true, "L'URL de l'image est obligatoire"] },
     type: { 
         type: String, 
         required: [true, "Le type de projet est obligatoire."],

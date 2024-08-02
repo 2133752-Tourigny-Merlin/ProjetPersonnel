@@ -28,7 +28,15 @@ function getOne(id: string): Promise<IProjet | null> {
  */
 function getRecent(nb: number): Promise<IProjet[]> {
   console.log("getRecentService");
-  return ProjetRepo.GetRecent(nb);
+  return ProjetRepo.getRecent(nb);
+}
+
+/**
+ * Lire les 3 derniers projets.
+ */
+function getType(type: string): Promise<IProjet[]> {
+  console.log("getType");
+  return ProjetRepo.getType(type);
 }
 
 /**
@@ -68,6 +76,7 @@ export default {
   getAll,
   getOne,
   getRecent,
+  getType,
   add,
   update,
   delete_,

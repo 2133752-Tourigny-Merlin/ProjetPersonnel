@@ -25,11 +25,20 @@ async function getOne(req: IReq, res: IRes) {
 }
 
 /**
+ * Get un projet selon l'id'
+ */
+async function getRecent(req: IReq, res: IRes) {
+  const image = await ImageService.getRecent();
+  return res.status(HttpStatusCodes.OK).json({ image });
+}
+
+/**
  * Add un projet.
  */
 async function add(req: IReq<{Image: IImage}>, res: IRes) {
   const { Image } = req.body;
-  await ImageService.add(Image, res);
+  console.log("addRoutes");
+  await ImageService.add(Image);
   return res.status(HttpStatusCodes.CREATED).end();
 }
 
@@ -49,6 +58,7 @@ async function delete_(req: IReq, res: IRes) {
 export default {
   getAll,
   getOne,
+  getRecent,
   add,
   delete_,
 } as const;
