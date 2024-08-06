@@ -18,6 +18,7 @@ export default {
   Image: {
     Base: '/image', //good
     GetAll: '/', //good
+    GetOneId: '/id/:id',
     GetOne: "/:id", //good
     GetRecent: "/recent/last", //good
     Add: '/', //good

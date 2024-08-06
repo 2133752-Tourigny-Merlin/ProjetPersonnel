@@ -43,6 +43,7 @@ ProjetRouter.delete(Paths.Projet.Delete, ProjetRoutes.delete_);
 
 ImageRouter.get(Paths.Image.GetAll, ImageRoutes.getAll);
 ImageRouter.get(Paths.Image.GetOne, imageController.getImage);
+ImageRouter.get(Paths.Image.GetOneId, ImageRoutes.getOne);
 ImageRouter.get(Paths.Image.GetRecent, ImageRoutes.getRecent);
 ImageRouter.delete(Paths.Image.Delete, ImageRoutes.delete_);
 ImageRouter.post(Paths.Image.Add, upload.single('image'), imageController.postImage);

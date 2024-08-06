@@ -46,13 +46,23 @@ const Modifier: React.FC<{}> = () => {
           setDescription(projet.description);
           setType(projet.type);
           setDate(projet.date.split('T')[0]); // Format date to yyyy-MM-dd
-          setImageNom(projet.imageNom);
-          setImageId(projet.id_image);
-        })
-        .catch(error => {
-          console.error('Error fetching project:', error);
-          setError('Failed to fetch project');
-        });
+          console.log(projet.id_image);
+
+          Axios.get(`/api/Image/id/${projet.id_image}`)
+          .then(res2 => {
+            console.log(res2.data.image.nom);
+            setImageNom(res2.data.image.nom);
+            })
+            .catch(error => {
+              console.error('Error fetching image:', error);
+              setError('Failed to fetch image');
+            });
+            setImageId(projet.id_image);
+          })
+          .catch(error => {
+            console.error('Error fetching project:', error);
+            setError('Failed to fetch project');
+          });
     } else {
       console.error('No project ID provided');
       setError('No project ID provided');
