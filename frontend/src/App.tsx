@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminRoute />} />
           <Route path="/Ajout" element={<AjoutRoute />} />
-          <Route path="/Modifier/:_id" element={<ModifierRoute />} />
+          <Route path="/Modifier/:id" element={<ModifierRoute />} />
           <Route path="/Peintures" element={<PeinturesRoute />} />
           <Route path="/Dessins" element={<DessinsRoute />} />
           <Route path="/Sculptures" element={<SculpturesRoute />} />

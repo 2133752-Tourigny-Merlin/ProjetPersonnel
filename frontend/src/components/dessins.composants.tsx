@@ -46,7 +46,7 @@ export const Dessins = () => {
               <nav>
                 <h2>Peintures</h2>
                 <ul>
-                  <li><a href="/">Accueil</a></li>
+                  <li><a href="/">Dessins</a></li>
                   <li><a href="/Sculptures">Sculptures</a></li>
                   <li><a href="/Dessins">Dessins</a></li>
                   <li><a href="/Peintures">Peintures</a></li>
@@ -59,7 +59,7 @@ export const Dessins = () => {
                 {Array.isArray(projects) && projects.length > 0 ? (
                   projects.map((project) => (
                     <ProjetComposant
-                      _id={project._id}
+                      id={project._id}
                       key={project._id}
                       titre={project.titre}
                       description={project.description}

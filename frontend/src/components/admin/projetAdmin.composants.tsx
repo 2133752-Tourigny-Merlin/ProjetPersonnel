@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Alert, { AlertColor } from '@mui/material/Alert';
 
 interface ProjectProps {
-  _id: string;
+  id: string;
   titre: string;
   description?: string;
   date: string;
@@ -17,14 +17,14 @@ interface ProjectProps {
 }
 
 export const ProjetComposant: React.FC<ProjectProps> = ({
-  _id,
+  id,
   titre,
   description,
   date,
   id_image,
   type,
 }) => {
-  console.log('Project ID:', _id);
+  console.log('Project ID:', id);
   console.log('Project Titre:', titre);
   const [imageUrl, setImageUrl] = useState('');
   const [message, setMessage] = useState('');
@@ -58,13 +58,13 @@ export const ProjetComposant: React.FC<ProjectProps> = ({
   
 
   const handleUpdate = () => {
-    navigate(`/modifier/${_id}`);
+    navigate(`/modifier/${id}`);
   };
 
   const handleDelete = async () => {
     try {
-      console.log(_id);
-      await Axios.delete(`/api/Projet/${_id}`);
+      console.log(id);
+      await Axios.delete(`/api/Projet/${id}`);
       setMessage('Project deleted successfully');
       setCouleur('success');
       navigate("/");

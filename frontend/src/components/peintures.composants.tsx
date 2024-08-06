@@ -3,6 +3,7 @@ import axios from '../api'; // Import the Axios instance
 import ProjetComposant from './projet.composants';
 import './home.css';
 import { useNavigate  } from 'react-router-dom';
+
 interface Project {
   _id: string;
   titre: string;
@@ -16,6 +17,7 @@ export const Peintures = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  
   const handleLogin = () => {
     navigate("/login");
   }
@@ -47,7 +49,7 @@ export const Peintures = () => {
               <nav>
                 <h2>Peintures</h2>
                 <ul>
-                  <li><a href="/">Accueil</a></li>
+                  <li><a href="/">Peintures</a></li>
                   <li><a href="/Sculptures">Sculptures</a></li>
                   <li><a href="/Dessins">Dessins</a></li>
                   <li><a href="/Peintures">Peintures</a></li>

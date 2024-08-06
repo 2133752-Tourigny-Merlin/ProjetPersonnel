@@ -49,7 +49,7 @@ export const Sculptures = () => {
   console.log('Projects state:', projects);
     return (
         <>
-          <header>
+         <header>
             <nav>
               <h2>Sculptures</h2>
               <ul>
@@ -68,12 +68,13 @@ export const Sculptures = () => {
                   projects.map((project) => (
                     <ProjetComposant
                       key={project._id}
+                      id={project._id}
                       titre={project.titre}
                       description={project.description}
                       date={project.date}
                       id_image={project.id_image}
-                      type={project.type} 
-                      id={project._id}                    />
+                      type={project.type}
+                    />
                   ))
                 ) : (
                   <p>No projects found</p>
@@ -85,6 +86,6 @@ export const Sculptures = () => {
             </footer>
           </>
           );
-};
+  };
   
 export default Sculptures;

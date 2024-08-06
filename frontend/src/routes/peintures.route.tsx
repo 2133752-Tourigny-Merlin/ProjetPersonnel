@@ -13,7 +13,7 @@ export const PeinturesRoute = () => {
         if (loading) return;
         // si user est null, l'utilisateur n'est pas authentifié
         if (!user) {
-            navigate('/');
+            navigate('/Peintures');
         } else {
             navigate('/admin');
         }

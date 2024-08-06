@@ -26,7 +26,7 @@ const Modifier: React.FC<{}> = () => {
   const [couleur, setCouleur] = useState<AlertColor>('error');
   
   const navigate = useNavigate();
-  const { _id: projectId } = useParams<{ _id: string }>();
+  const { id: projectId } = useParams<{ id: string }>();
 
   const handleLogout = async () => {
     try {

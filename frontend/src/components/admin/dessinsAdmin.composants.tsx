@@ -68,7 +68,7 @@ export const Dessins = () => {
                   projects.map((project) => (
                     <ProjetComposant
                       key={project._id}
-                      _id={project._id}
+                      id={project._id}
                       titre={project.titre}
                       description={project.description}
                       date={project.date}

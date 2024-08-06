@@ -89,4 +89,3 @@ export const Peintures = () => {
   };
   
 export default Peintures;
-  
