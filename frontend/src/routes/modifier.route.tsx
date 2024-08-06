@@ -1,20 +1,22 @@
-import Modifier from '../components/admin/modifier.composants';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { auth } from '../firebase';
+import Modifier from '../components/admin/modifier.composants';
 
 export const ModifierRoute = () => {
-const [user, loading] = useAuthState(auth);
-const navigate = useNavigate();
+const { _id } = useParams<{ _id: string }>();
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
-useEffect(() => {
-    // si loading = true, ça veut dire que le firebase n'est pas encore prêt.
+  useEffect(() => {
     if (loading) return;
-    // si user est null, l'utilisateur n'est pas authentifié
-    if (!user) navigate('/login');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [user, loading]);
+    if (!user) navigate('/');
+  }, [user, loading, navigate]);
 
-return <Modifier />;
+  if (!_id) {
+    return <p>No project ID provided</p>;
+  }
+
+  return <Modifier />;
 };

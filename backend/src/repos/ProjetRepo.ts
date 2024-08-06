@@ -1,5 +1,8 @@
 import Projet, { IProjet } from '../models/Projet';
 import { connect } from 'mongoose'
+import Image, { IImage } from '../models/Image';
+import fs from 'fs';
+
 // **** Functions **** //
 
 /**
@@ -25,7 +28,6 @@ async function getAll(): Promise<IProjet[]> {
 async function getOne(id: string): Promise<IProjet | null> {
   await connect(process.env.MONGODB_URI!, {dbName:'Projet'});
   const projet = await Projet.findById(id);
-  console.log(projet);
   return projet;
 }
 
@@ -77,11 +79,26 @@ async function add(projet: IProjet): Promise<IProjet> {
     return projetAModifier;
   }
   
+  async function deleteImage(id: string): Promise<void> {
+    await connect(process.env.MONGODB_URI!, { dbName: 'Image' });
+    const image = await Image.findById(id);
+  
+    if (image) {
+      fs.unlinkSync(image.chemin);
+      await Image.findByIdAndDelete(id);
+    }
+  }
+
   /**
    * Supprimer un admin.
    */
   async function delete_(id: string): Promise<void> {
     await connect(process.env.MONGODB_URI!, {dbName:'Projet'});
+    const projet = await Projet.findById(id);
+    if(projet){
+       deleteImage(projet.id_image);
+    }
+   
     await Projet.findByIdAndDelete(id);
   }
 

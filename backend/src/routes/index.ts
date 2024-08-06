@@ -6,7 +6,7 @@ import HttpStatusCodes from '../common/HttpStatusCodes';
 import ProjetRoutes from './ProjetRoutes';
 import ImageRoutes from './ImageRoutes';
 import upload from "../Middleware/ImageConfig";
-import imageController from '../Controller/ImageController';
+import * as imageController from '../Controller/ImageController';
 // **** Variables **** //
 
 const apiRouter = Router();
@@ -42,10 +42,10 @@ ProjetRouter.delete(Paths.Projet.Delete, ProjetRoutes.delete_);
 //** Images **/
 
 ImageRouter.get(Paths.Image.GetAll, ImageRoutes.getAll);
-ImageRouter.get(Paths.Image.GetOne, ImageRoutes.getOne);
+ImageRouter.get(Paths.Image.GetOne, imageController.getImage);
 ImageRouter.get(Paths.Image.GetRecent, ImageRoutes.getRecent);
 ImageRouter.delete(Paths.Image.Delete, ImageRoutes.delete_);
-ImageRouter.post(Paths.Image.Add, upload.single('image'), imageController);
+ImageRouter.post(Paths.Image.Add, upload.single('image'), imageController.postImage);
 
 
 //** Stats **/

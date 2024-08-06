@@ -2,7 +2,10 @@ import express,{Response,Request} from 'express'
 import multer from 'multer'
 import fs from 'fs'
 import path from 'path';
-import Image from '../models/Image';
+import Image, { IImage } from '../models/Image';
+import { connect } from 'mongoose';
+
+import { v4 as uuidv4 } from 'uuid';
 /*
 * save image
 * route @POST
@@ -27,31 +30,64 @@ export const postImage = async (req: Request, res: Response) => {
     }
 }
 
-/*
-* get Image
-* route @GET
-*/
-/*
-// Get image route @GET
-export const getImage = async (req: Request, res: Response) => {
-    const fileName = req.params.id;
-    const imagePath = path.join(__dirname, '../Images', fileName);
-    const noImagePath = path.join(__dirname, '../Images/NoImage', 'noimage.jpg');
-
-    try {
-        const exists = await fs.promises.access(imagePath).then(() => true).catch(() => false);
-        const filePath = exists ? imagePath : noImagePath;
-        const data = await fs.promises.readFile(filePath);
-        res.end(data);
-    } catch (err) {
-        console.error("Error reading file:", err);
-        res.status(500).json({ message: 'Error reading file' });
+async function getOne(id: string): Promise<string | null> {
+    await connect(process.env.MONGODB_URI!, { dbName: 'Image' });
+    const image = await Image.findById(id);
+    if (image) {
+        return image.nom; // Assuming 'nom' is the filename
+    } else {
+        return null;
     }
+}
+
+/*
+ * get Image
+ * route @GET
+ */
+/*
+ * get Image
+ * route @GET
+ */
+export const getImage = async (req: Request, res: Response) => {
+    const fileId = req.params.id;
+
+    console.log(`${fileId} test`);
+    const fileName = await getOne(fileId);
+    console.log(`${fileName} test`);
+
+    if (!fileName) {
+        res.status(404).send('Image not found');
+        return;
+    }
+
+    const filePath = path.join('H:/projet/ProjetPersonnel/backend/src/Images/', fileName);
+    console.log(filePath + " test");
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+        if (err) {
+            // File does not exist, send default image
+            const defaultImagePath = path.join('H:/projet/ProjetPersonnel/backend/src/Images/NoImage/noimage.jpg');
+            console.log(`Default image path: ${defaultImagePath}`);
+
+            fs.readFile(defaultImagePath, (err, data) => {
+                if (err) {
+                    console.error('Error reading default image:', err);
+                    res.status(500).send('Error loading default image');
+                } else {
+                    res.setHeader('Content-Type', 'image/jpeg'); // Set the correct content type
+                    res.end(data);
+                }
+            });
+        } else {
+            // File exists, send the image
+            fs.readFile(filePath, (err, data) => {
+                if (err) {
+                    console.error('Error reading image:', err);
+                    res.status(500).send('Error loading image');
+                } else {
+                    res.setHeader('Content-Type', 'image/jpeg'); // Set the correct content type
+                    res.end(data);
+                }
+            });
+        }
+    });
 };
-
-
-export const test = async(req: Request, res: Response) => {
-    res.send('test')
-}*/
-
-export default postImage;

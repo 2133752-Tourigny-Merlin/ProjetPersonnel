@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../api'; // Import the Axios instance
 import ProjetComposant from './projetAdmin.composants';
 import '../home.css';
+import { logout } from '../../firebase';
 
 interface Project {
   _id: string;
   titre: string;
   description?: string;
-  date: string; // Date as string from the API
+  date: string;
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
@@ -34,6 +35,14 @@ export const Dessins = () => {
     fetchProjects();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error('Error during logout:', err);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -59,6 +68,7 @@ export const Dessins = () => {
                   projects.map((project) => (
                     <ProjetComposant
                       key={project._id}
+                      _id={project._id}
                       titre={project.titre}
                       description={project.description}
                       date={project.date}
@@ -72,7 +82,7 @@ export const Dessins = () => {
               </section>
             </main>
             <footer>
-              <p>&copy; 2024 Your Site Name. All rights reserved.</p>
+              <button onClick={handleLogout}>Déconnexion</button>
             </footer>
           </>
           );

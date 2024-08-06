@@ -68,7 +68,7 @@ return (
         md={7}
         sx={{
             backgroundImage:
-            'url(https://source.unsplash.com/random?wallpapers)',
+            'url(https://images.joseartgallery.com/100736/what-kind-of-art-is-popular-right-now.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
             t.palette.mode === 'light'

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api'; // Import the Axios instance
 import ProjetComposant from './projet.composants';
 import './home.css';
-
+import { useNavigate  } from 'react-router-dom';
 interface Project {
   _id: string;
   titre: string;
@@ -15,7 +15,7 @@ export const Dessins = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -36,7 +36,9 @@ export const Dessins = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-
+  const handleLogin = () => {
+    navigate("/login");
+  }
   console.log('Projects state:', projects);
     return (
         <>
@@ -57,6 +59,7 @@ export const Dessins = () => {
                 {Array.isArray(projects) && projects.length > 0 ? (
                   projects.map((project) => (
                     <ProjetComposant
+                      _id={project._id}
                       key={project._id}
                       titre={project.titre}
                       description={project.description}
@@ -71,7 +74,7 @@ export const Dessins = () => {
               </section>
             </main>
             <footer>
-              <p>&copy; 2024 Your Site Name. All rights reserved.</p>
+              <button onClick={handleLogin}>Connexion</button>
             </footer>
           </>
           );

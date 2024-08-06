@@ -19,11 +19,11 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<HomeRoute />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminRoute />} />
-          <Route path="/" element={<HomeRoute />} />
           <Route path="/Ajout" element={<AjoutRoute />} />
-          <Route path="/Modifier" element={<ModifierRoute />} />
+          <Route path="/Modifier/:_id" element={<ModifierRoute />} />
           <Route path="/Peintures" element={<PeinturesRoute />} />
           <Route path="/Dessins" element={<DessinsRoute />} />
           <Route path="/Sculptures" element={<SculpturesRoute />} />

@@ -19,8 +19,8 @@ export default {
     Base: '/image', //good
     GetAll: '/', //good
     GetOne: "/:id", //good
-    GetRecent: "/recent/last",
-    Add: '/',
+    GetRecent: "/recent/last", //good
+    Add: '/', //good
     Delete: '/:id',
   },
 } as const;

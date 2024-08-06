@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-
+import { useNavigate } from 'react-router-dom';
 const firebaseConfig = {
   apiKey: "AIzaSyDHqqEgqb75IZGOJCKXRbZ8i7iMNzWwMsE",
   authDomain: "portfolio-ded4a.firebaseapp.com",

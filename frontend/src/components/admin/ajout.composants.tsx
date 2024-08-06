@@ -7,11 +7,12 @@ import Axios from '../../api';
 import Alert, { AlertColor } from '@mui/material/Alert';
 import SupprimerImage from './supprimer-image';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../firebase';
 
 export const Ajout = () => {
   const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
-  const [type, setType] = useState(''); // State for dropdown selection
+  const [type, setType] = useState('');
   const [imageNom, setImageNom] = useState('');
   const [imageId, setImageId] = useState('');
   const [erreurDate, setErreurDate] = useState('');
@@ -31,10 +32,11 @@ export const Ajout = () => {
 
     const payload = {
       Projet: {
+        id: String,
         titre: titre,
         description: description,
         id_image: imageId,
-        date: new Date(date).toISOString(), // Correctly convert date to ISO string
+        date: new Date(date).toISOString(),
         type: type,
       },
     };
@@ -47,7 +49,7 @@ export const Ajout = () => {
       reinitialiserFormulaire();
       setMessage("L'article a été ajouté avec succès");
       setCouleur("success");
-      navigate('/'); // Navigate to home page after success
+      navigate('/');
     } catch (error) {
       console.error('Error adding article:', error);
       setMessage("L'article n'a pas été ajouté du à une erreur de notre part.");
@@ -58,7 +60,7 @@ export const Ajout = () => {
   const reinitialiserFormulaire = () => {
     setTitre('');
     setDescription('');
-    setType(''); // Reset the type selection
+    setType('');
     miseAJourImages();
   };
 
@@ -88,6 +90,15 @@ export const Ajout = () => {
     setImageNom("");
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (err) {
+      console.error('Error during logout:', err);
+    }
+  };
+
   return (
     <>
      <header>
@@ -103,8 +114,8 @@ export const Ajout = () => {
               <h3>Merlin Tourigny</h3>
             </nav>
         </header>
+        <main>
       <form onSubmit={envoyer}>
-        <h1 className='titre'>Ajouter un article</h1>
         <div style={{ display: affichage, marginBottom: 20, color: 'white' }}>
           <Alert id='message-couleur' severity={couleur}>
             <div id='message-liste-document'>
@@ -167,7 +178,6 @@ export const Ajout = () => {
             <MenuItem value="Sculpture">Sculpture</MenuItem>
             <MenuItem value="Dessin">Dessin</MenuItem>
             <MenuItem value="Peinture">Peinture</MenuItem>
-            {/* Add more options as needed */}
           </Select>
         </FormControl>
 
@@ -191,6 +201,10 @@ export const Ajout = () => {
           Publier
         </Button>
       </form>
+      </main>
+      <footer>
+        <button onClick={handleLogout}>Déconnexion</button>
+      </footer>
     </>
   );
 };

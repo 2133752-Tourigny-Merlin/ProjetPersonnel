@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api'; // Import the Axios instance
 import ProjetComposant from './projet.composants';
 import './home.css';
-
+import { useNavigate  } from 'react-router-dom';
 interface Project {
   _id: string;
   titre: string;
@@ -15,7 +15,10 @@ export const Sculptures = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login");
+  }
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -58,6 +61,7 @@ export const Sculptures = () => {
                   projects.map((project) => (
                     <ProjetComposant
                       key={project._id}
+                      id={project._id}
                       titre={project.titre}
                       description={project.description}
                       date={project.date}
@@ -71,7 +75,7 @@ export const Sculptures = () => {
               </section>
             </main>
             <footer>
-              <p>&copy; 2024 Your Site Name. All rights reserved.</p>
+              <button onClick={handleLogin}>Connexion</button>
             </footer>
           </>
           );

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../api'; // Import the Axios instance
 import ProjetComposant from './projetAdmin.composants';
 import '../home.css';
+import { useNavigate  } from 'react-router-dom';
+import { logout } from '../../firebase';
 
 interface Project {
   _id: string;
   titre: string;
   description?: string;
-  date: string; // Date as string from the API
+  date: string;
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
@@ -16,13 +18,13 @@ export const HomeAdmin = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/recent/3');
         console.log('Fetched projects:', response.data);
-        // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
@@ -34,6 +36,15 @@ export const HomeAdmin = () => {
 
     fetchProjects();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (err) {
+      console.error('Error during logout:', err);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -61,6 +72,7 @@ export const HomeAdmin = () => {
             projects.map((project) => (
               <ProjetComposant
                 key={project._id}
+                id={project._id}
                 titre={project.titre}
                 description={project.description}
                 date={project.date}
@@ -74,7 +86,7 @@ export const HomeAdmin = () => {
         </section>
       </main>
       <footer>
-        <p>&copy; 2024 Your Site Name. All rights reserved.</p>
+              <button onClick={handleLogout}>Déconnexion</button>
       </footer>
     </>
   );

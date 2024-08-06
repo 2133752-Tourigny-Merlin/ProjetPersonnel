@@ -64,11 +64,11 @@ async function getOne(id: string): Promise<IImage | null> {
 }
 
 /**
- * Lire 3 derniers projets.
+ * Lire la dernierere image.
  */
 async function getRecent(): Promise<IImage[]> {
   await connect(process.env.MONGODB_URI!, { dbName: 'Image' });
-  const images = await Image.find().sort({ date: -1 }).limit(1);
+  const images = await Image.find().sort({ dateCreation: -1 }).limit(1);
   return images;
 }
 

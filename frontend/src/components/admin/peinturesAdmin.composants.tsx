@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../api'; // Import the Axios instance
 import ProjetComposant from './projetAdmin.composants';
 import '../home.css';
+import { logout } from '../../firebase';
 
 interface Project {
   _id: string;
   titre: string;
   description?: string;
-  date: string; // Date as string from the API
+  date: string;
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
@@ -34,31 +35,40 @@ export const Peintures = () => {
     fetchProjects();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error('Error during logout:', err);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   console.log('Projects state:', projects);
     return (
         <>
-            <header>
-        <nav>
-          <h2>Peintures</h2>
-          <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/Sculptures">Sculptures</a></li>
-            <li><a href="/Dessins">Dessins</a></li>
-            <li><a href="/Peintures">Peintures</a></li>
-            <li><a href="/Ajout">Ajouter</a></li>
-          </ul>
-          <h3>Merlin Tourigny</h3>
-        </nav>
-      </header>
+         <header>
+            <nav>
+              <h2>Peintures</h2>
+              <ul>
+                <li><a href="/admin">Accueil</a></li>
+                <li><a href="/SculpturesAdmin">Sculptures</a></li>
+                <li><a href="/DessinsAdmin">Dessins</a></li>
+                <li><a href="/PeinturesAdmin">Peintures</a></li>
+                <li><a href="/Ajout">Ajouter</a></li>
+              </ul>
+              <h3>Merlin Tourigny</h3>
+            </nav>
+          </header>
             <main>
               <section className="cards">
                 {Array.isArray(projects) && projects.length > 0 ? (
                   projects.map((project) => (
                     <ProjetComposant
                       key={project._id}
+                      id={project._id}
                       titre={project.titre}
                       description={project.description}
                       date={project.date}
@@ -72,7 +82,7 @@ export const Peintures = () => {
               </section>
             </main>
             <footer>
-              <p>&copy; 2024 Your Site Name. All rights reserved.</p>
+              <button onClick={handleLogout}>Déconnexion</button>
             </footer>
           </>
           );
