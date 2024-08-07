@@ -4,24 +4,28 @@ import './home.css';
 import Axios from '../api';
 import { useNavigate } from 'react-router-dom';
 import Alert, { AlertColor } from '@mui/material/Alert';
+
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface ProjectProps {
-  _id: string;
+  id: string;
   titre: string;
   description?: string;
-  date: string; // Date as string
+  date: string;
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
 
 export const ProjetComposant: React.FC<ProjectProps> = ({
-  _id,
+  id,
   titre,
   description,
   date,
   id_image,
   type,
 }) => {
-  console.log('Project ID:', _id);
+  console.log('Project ID:', id);
   console.log('Project Titre:', titre);
   const [imageUrl, setImageUrl] = useState('');
   const [message, setMessage] = useState('');
@@ -33,10 +37,9 @@ export const ProjetComposant: React.FC<ProjectProps> = ({
     const fetchImage = async () => {
       try {
         const response = await Axios.get(`/api/Image/${id_image}`, {
-          responseType: 'blob', // Important: Set response type to 'blob' to handle binary data
+          responseType: 'blob',
         });
   
-        // Create a URL for the image blob
         const imageBlob = response.data;
         const imageObjectUrl = URL.createObjectURL(imageBlob);
   

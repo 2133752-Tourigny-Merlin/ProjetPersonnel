@@ -1,12 +1,13 @@
 import mongoose, { Date, Schema, model } from 'mongoose';
 
-// **** Interface Projet ****//
+// types correct
 const types = ["Sculpture", "Dessin", "Peinture"];
 
+// **** Interface Projet ****//
 export interface IProjet {
     titre: string;
-    description?: string; // Make description optional
-    date: Date; // Use Date type for date
+    description?: string;
+    date: Date;
     id_image: string;
     type: "Sculpture" | "Dessin" | "Peinture";
     _id?: string;
@@ -15,8 +16,8 @@ export interface IProjet {
 // **** ProjetSchema **** //
 const ProjetSchema = new Schema<IProjet>({
     titre: { type: String, required: [true, "Le titre du projet est obligatoire"] },
-    description: { type: String }, // Optional field
-    date: { type: Date, required: [true, "La date du projet est obligatoire"] }, // Use Date type
+    description: { type: String },
+    date: { type: Date, required: [true, "La date du projet est obligatoire"] },
     id_image: { type: String, required: [true, "L'URL de l'image est obligatoire"] },
     type: { 
         type: String, 

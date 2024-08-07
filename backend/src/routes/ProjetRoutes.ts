@@ -63,7 +63,7 @@ async function update(req: IReq<{Projet: IProjet}>, res: IRes) {
 }
 
 /**
- * Delete un admin.
+ * Delete un projet.
  */
 async function delete_(req: IReq, res: IRes) {
     const id = req.params.id;

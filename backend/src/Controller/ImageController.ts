@@ -1,11 +1,18 @@
-import express,{Response,Request} from 'express'
-import multer from 'multer'
+/**
+ * Fichier ImageController.ts
+ * code source https://github.com/CKANYWHERE/nodejs-typescript-multerexample
+ * 
+ * code généré par chatGPT URL: https://chatgpt.com
+ * 
+ * date: 2024-08-07
+ * @author Merlin Tourigny
+ */
+import {Response,Request} from 'express'
 import fs from 'fs'
 import path from 'path';
-import Image, { IImage } from '../models/Image';
+import Image from '../models/Image';
 import { connect } from 'mongoose';
 
-import { v4 as uuidv4 } from 'uuid';
 /*
 * save image
 * route @POST
@@ -30,11 +37,15 @@ export const postImage = async (req: Request, res: Response) => {
     }
 }
 
+/*
+* get one image
+* route @getOne
+*/
 async function getOne(id: string): Promise<string | null> {
     await connect(process.env.MONGODB_URI!, { dbName: 'Image' });
     const image = await Image.findById(id);
     if (image) {
-        return image.nom; // Assuming 'nom' is the filename
+        return image.nom;
     } else {
         return null;
     }
@@ -44,16 +55,9 @@ async function getOne(id: string): Promise<string | null> {
  * get Image
  * route @GET
  */
-/*
- * get Image
- * route @GET
- */
 export const getImage = async (req: Request, res: Response) => {
     const fileId = req.params.id;
-
-    console.log(`${fileId} test`);
     const fileName = await getOne(fileId);
-    console.log(`${fileName} test`);
 
     if (!fileName) {
         res.status(404).send('Image not found');

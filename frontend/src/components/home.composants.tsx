@@ -3,7 +3,9 @@ import axios from '../api'; // Import the Axios instance
 import ProjetComposant from './projet.composants';
 import './home.css';
 import { useNavigate  } from 'react-router-dom';
-
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface Project {
   _id: string;
   titre: string;
@@ -13,17 +15,22 @@ interface Project {
   type: "Sculpture" | "Dessin" | "Peinture";
 }
 
+/**
+ * Const Home qui affiche les projets
+ * @returns retourne la liste des projets dans une page
+ */
 export const Home = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
+    /**
+     * Récupère les 3 derniers projets
+     */
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/recent/3');
-        console.log('Fetched projects:', response.data);
-        // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
@@ -36,13 +43,14 @@ export const Home = () => {
     fetchProjects();
   }, []);
 
+  /**
+  * fonction qui envoi le user a la page de login
+  */
   const handleLogin = () => {
     navigate("/login");
   }
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-
-  console.log('Projects state:', projects);
 
   return (
     <>

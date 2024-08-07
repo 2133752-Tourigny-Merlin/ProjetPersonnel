@@ -14,6 +14,13 @@ import { ModifierRoute } from './routes/modifier.route';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './routes/login.route';
 
+/**
+ * Fonction App qui s'occupe de route toutes les routes
+ * 
+ * Inspiré du code fournis par Étienne Rivard
+ * 
+ * @returns Les différentes routes du site
+ */
 function App() {
   return (
     <>

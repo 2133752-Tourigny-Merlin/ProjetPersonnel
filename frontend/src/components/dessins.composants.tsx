@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../api'; // Import the Axios instance
+import axios from '../api';
 import ProjetComposant from './projet.composants';
 import './home.css';
 import { useNavigate  } from 'react-router-dom';
+
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface Project {
   _id: string;
   titre: string;
   description?: string;
-  date: string; // Date as string from the API
+  date: string;
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
+
+/**
+ * Const Dessins qui affiche les projets avec comme type Dessins
+ * @returns retourne la liste des projets dans une page
+ */
 export const Dessins = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   useEffect(() => {
+     /**
+     * Récupère tout les projets selon le type
+     */
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/type/Dessin');
-        console.log('Fetched projects:', response.data);
-        // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
@@ -36,6 +46,10 @@ export const Dessins = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
+  /**
+  * fonction qui envoi le user a la page de login
+  */
   const handleLogin = () => {
     navigate("/login");
   }

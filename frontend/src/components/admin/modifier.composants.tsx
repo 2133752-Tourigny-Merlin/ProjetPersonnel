@@ -1,3 +1,10 @@
+/**
+ * Fichier modifier.composants.tsx
+ * @author Merlin Tourigny
+ * Date: 2024/08/07
+ * 
+ * page d'affichage pour le formulaire de modification
+ */
 import React, { FormEvent, useEffect, useState } from 'react';
 import '../home.css';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
@@ -8,8 +15,10 @@ import SupprimerImage from './supprimer-image';
 import { useNavigate, useParams } from 'react-router-dom';
 import { logout } from '../../firebase';
 
-
-
+/**
+ * Const Modifier qui affiche un formulaire pour modifier un projet
+ * @returns retourne le formulaire
+ */
 const Modifier: React.FC<{}> = () => {
   const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
@@ -27,7 +36,11 @@ const Modifier: React.FC<{}> = () => {
   
   const navigate = useNavigate();
   const { id: projectId } = useParams<{ id: string }>();
-
+  
+ /**
+  * fonction qui logout le user
+  *  retourne a la page d'accueil
+  */
   const handleLogout = async () => {
     try {
       await logout();
@@ -38,6 +51,9 @@ const Modifier: React.FC<{}> = () => {
   };
 
   useEffect(() => {
+    /**
+     * Get le projet a modifier selon l'id recu en paramètre
+     */
     if (projectId) {
       Axios.get(`/api/Projet/${projectId}`)
         .then(res => {
@@ -45,12 +61,10 @@ const Modifier: React.FC<{}> = () => {
           setTitre(projet.titre);
           setDescription(projet.description);
           setType(projet.type);
-          setDate(projet.date.split('T')[0]); // Format date to yyyy-MM-dd
-          console.log(projet.id_image);
+          setDate(projet.date.split('T')[0]);
 
           Axios.get(`/api/Image/id/${projet.id_image}`)
           .then(res2 => {
-            console.log(res2.data.image.nom);
             setImageNom(res2.data.image.nom);
             })
             .catch(error => {
@@ -68,7 +82,11 @@ const Modifier: React.FC<{}> = () => {
       setError('No project ID provided');
     }
   }, [projectId]);
-  
+
+  /**
+ * fonction d'envoyer qui sers à envoyer les informations au Backend
+ * @param evenement: FromEvent
+ */
   const envoyer = async (evenement: FormEvent) => {
     evenement.preventDefault();
     setAffichage('block');
@@ -77,23 +95,22 @@ const Modifier: React.FC<{}> = () => {
       setError('Project ID is missing');
       return;
     }
-  
+
+     /**
+     * Payload qui contient l'objet à envoyer
+     */
     const payload = {
       Projet: {
         _id: projectId,
         titre: titre,
         description: description,
         id_image: imageId,
-        date: new Date(date).toISOString(), // Ensure correct format
+        date: new Date(date).toISOString(),
         type: type,
       },
     };
-  
-    console.log('Form data:', payload);
-  
     try {
       const response = await Axios.put(`/api/Projet/`, payload);
-      console.log('Project updated:', response.data);
       reinitialiserFormulaire();
       setMessage("Le projet a été modifié avec succès");
       setCouleur("success");
@@ -104,7 +121,10 @@ const Modifier: React.FC<{}> = () => {
       setCouleur("error");
     }
   };
-  
+
+  /*
+  * Réinitialise les valeurs des champs du formulaire
+  */
   const reinitialiserFormulaire = () => {
     setTitre('');
     setDescription('');
@@ -112,21 +132,36 @@ const Modifier: React.FC<{}> = () => {
     miseAJourImages();
   };
 
+  /**
+  * Change le message de l'alerte.
+  * 
+  * @param newMessage 
+  */
   function messageRetroaction(newMessage: string) {
     setMessage(newMessage);
     setAffichage('block');
   };
   
+  /**
+  * Change la couleur de l'alerte.
+  * 
+  * @param couleur La couleur.
+  */
   function alertCouleur(couleur: AlertColor) {
     setCouleur(couleur);
   }
 
+  /**
+  * fonction getImageAjouter qui ajoute l'image à la base de donnée.
+  *  
+  * Mets le nom dans la variable imageNom
+  * Mets l'id dans la variable inageId.
+  */
   const getImageAjouter = () => {
     Axios.get('/api/Image/recent/last')
       .then(res => {
         if (res.data && res.data.image && res.data.image.length > 0) {
           const recentImage = res.data.image[0];
-          console.log("Fetched image ID:", recentImage._id, "Name:", recentImage.nom);
           setImageNom(recentImage.nom);
           setImageId(recentImage._id);
         } else {
@@ -138,6 +173,12 @@ const Modifier: React.FC<{}> = () => {
       });
   };
 
+  /**
+  * fonction qui met a jour l'image de l'article
+  *  
+  * retire le nom de l'image supprimé.
+  * retire l'id de l'image supprimé.
+  */
   const miseAJourImages = () => {
     setImageId("");
     setImageNom("");
@@ -246,6 +287,9 @@ const Modifier: React.FC<{}> = () => {
           Modifier
         </Button>
       </form>
+      <footer>
+              <button onClick={handleLogout}>Déconnexion</button>
+      </footer>
     </>
   );
 };

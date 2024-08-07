@@ -8,7 +8,7 @@ import { IReq, IRes } from './types/express/misc';
 // **** Functions **** //
 
 /**
- * Get tout les projets.
+ * Get tout les images.
  */
 async function getAll(_: IReq, res: IRes) {
   const image = await ImageService.getAll();
@@ -16,7 +16,7 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 /**
- * Get un projet selon l'id'
+ * Get une image selon l'id'
  */
 async function getOne(req: IReq, res: IRes) {
     const id = req.params.id;
@@ -25,7 +25,7 @@ async function getOne(req: IReq, res: IRes) {
 }
 
 /**
- * Get un projet selon l'id'
+ * Get la dernière image'
  */
 async function getRecent(req: IReq, res: IRes) {
   const image = await ImageService.getRecent();
@@ -33,7 +33,7 @@ async function getRecent(req: IReq, res: IRes) {
 }
 
 /**
- * Add un projet.
+ * Add une image.
  */
 async function add(req: IReq<{Image: IImage}>, res: IRes) {
   const { Image } = req.body;
@@ -44,7 +44,7 @@ async function add(req: IReq<{Image: IImage}>, res: IRes) {
 
 
 /**
- * Delete un admin.
+ * Delete une image.
  */
 async function delete_(req: IReq, res: IRes) {
     const id = req.params.id;

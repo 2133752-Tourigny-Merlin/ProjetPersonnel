@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const addImage = upload.single('Image'); // Expect 'image' as the field name
+const addImage = upload.single('Image');
 
 /**
  * Vérifie si l'image existe.

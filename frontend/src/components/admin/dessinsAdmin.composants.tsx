@@ -1,9 +1,19 @@
+/**
+ * Fichier dessinsAdmin.composants.tsx
+ * @author Merlin Tourigny
+ * Date: 2024/08/07
+ * 
+ * page d'affichage pour les dessins
+ */
 import React, { useEffect, useState } from 'react';
-import axios from '../../api'; // Import the Axios instance
+import axios from '../../api';
 import ProjetComposant from './projetAdmin.composants';
 import '../home.css';
 import { logout } from '../../firebase';
 
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface Project {
   _id: string;
   titre: string;
@@ -12,21 +22,26 @@ interface Project {
   id_image: string;
   type: "Sculpture" | "Dessin" | "Peinture";
 }
+
+/**
+ * Const Dessins qui affichage les projets avec comme type Dessin
+ * @returns retourne la liste des projet dans une page
+ */
 export const Dessins = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    /**
+     * Récupère tout les projets selon le type
+     */
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/type/Dessin');
-        console.log('Fetched projects:', response.data);
-        // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching projects:', err);
         setError('Failed to fetch projects');
         setLoading(false);
       }
@@ -35,6 +50,10 @@ export const Dessins = () => {
     fetchProjects();
   }, []);
 
+ /**
+  * fonction qui logout le user
+  *  retourne a la page d'accueil
+  */
   const handleLogout = async () => {
     try {
       await logout();
@@ -46,7 +65,6 @@ export const Dessins = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  console.log('Projects state:', projects);
     return (
         <>
          <header>

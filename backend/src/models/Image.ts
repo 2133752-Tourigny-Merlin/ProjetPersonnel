@@ -1,16 +1,16 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-// Supported types
+// types supportés
 const supportedTypes = ["image/png", "image/jpeg", "image/jpg"] as const;
 
-// Interface for Image
+// Interface pour Image
 export interface IImage {
   _id?: string,
   nom: string;
   taille: number;
   chemin: string;
   dateCreation?: Date;
-  type: typeof supportedTypes[number]; // Use the union type of supportedTypes
+  type: typeof supportedTypes[number];
 }
 
 // Image Schema

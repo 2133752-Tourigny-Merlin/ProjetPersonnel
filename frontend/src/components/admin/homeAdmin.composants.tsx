@@ -5,6 +5,9 @@ import '../home.css';
 import { useNavigate  } from 'react-router-dom';
 import { logout } from '../../firebase';
 
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface Project {
   _id: string;
   titre: string;
@@ -14,6 +17,10 @@ interface Project {
   type: "Sculpture" | "Dessin" | "Peinture";
 }
 
+/**
+ * Const homeAdmin qui affiche les projets
+ * @returns retourne la liste des projet dans une page
+ */
 export const HomeAdmin = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,14 +28,15 @@ export const HomeAdmin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    /**
+     * Récupère tout les projets selon le type
+     */
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/recent/3');
-        console.log('Fetched projects:', response.data);
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching projects:', err);
         setError('Failed to fetch projects');
         setLoading(false);
       }
@@ -37,6 +45,10 @@ export const HomeAdmin = () => {
     fetchProjects();
   }, []);
 
+ /**
+  * fonction qui logout le user
+  *  retourne a la page d'accueil
+  */
   const handleLogout = async () => {
     try {
       await logout();

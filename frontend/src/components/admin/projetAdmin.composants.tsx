@@ -1,3 +1,10 @@
+/**
+ * Fichier projetAdmin.composants.tsx
+ * @author Merlin Tourigny
+ * Date: 2024/08/07
+ * 
+ * projet composant
+ */
 import React, { useState, useEffect } from 'react';
 import '../home.css';
 import Axios from '../../api';
@@ -7,6 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Alert, { AlertColor } from '@mui/material/Alert';
 
+/**
+ * interface Projet qui contient les valeurs d'un projet
+ */
 interface ProjectProps {
   id: string;
   titre: string;
@@ -16,6 +26,12 @@ interface ProjectProps {
   type: "Sculpture" | "Dessin" | "Peinture";
 }
 
+/**
+ * Composant d'un projet
+ * 
+ * @param ProjectProps qui contient les informations des projets 
+ * @returns 
+ */
 export const ProjetComposant: React.FC<ProjectProps> = ({
   id,
   titre,
@@ -24,8 +40,7 @@ export const ProjetComposant: React.FC<ProjectProps> = ({
   id_image,
   type,
 }) => {
-  console.log('Project ID:', id);
-  console.log('Project Titre:', titre);
+
   const [imageUrl, setImageUrl] = useState('');
   const [message, setMessage] = useState('');
   const [affichage, setAffichage] = useState("none");
@@ -33,13 +48,16 @@ export const ProjetComposant: React.FC<ProjectProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    /**
+    * Récupère tout les projets selon le type
+    */
     const fetchImage = async () => {
       try {
         const response = await Axios.get(`/api/Image/${id_image}`, {
-          responseType: 'blob', // Important: Set response type to 'blob' to handle binary data
+          responseType: 'blob',
         });
   
-        // Create a URL for the image blob
         const imageBlob = response.data;
         const imageObjectUrl = URL.createObjectURL(imageBlob);
   
@@ -56,14 +74,18 @@ export const ProjetComposant: React.FC<ProjectProps> = ({
     }
   }, [id_image]);
   
-
+  /**
+  * handle l'update qui envoi a la page d'update
+  */
   const handleUpdate = () => {
     navigate(`/modifier/${id}`);
   };
 
+  /**
+  * handle le delete qui delete le projet ainsi que l'image
+  */
   const handleDelete = async () => {
     try {
-      console.log(id);
       await Axios.delete(`/api/Projet/${id}`);
       setMessage('Project deleted successfully');
       setCouleur('success');

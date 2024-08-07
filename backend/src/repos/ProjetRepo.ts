@@ -1,12 +1,12 @@
 import Projet, { IProjet } from '../models/Projet';
 import { connect } from 'mongoose'
-import Image, { IImage } from '../models/Image';
+import Image from '../models/Image';
 import fs from 'fs';
 
 // **** Functions **** //
 
 /**
- * Vérifie si l'admin existe.
+ * Vérifie si le projet existe.
  */
 async function persists(id: string): Promise<boolean> {
   const projet = await Projet.findById(id);
@@ -55,7 +55,7 @@ async function getType(type: string): Promise<IProjet[]> {
 
 
 /**
- * Ajoute un admin.
+ * Ajoute un projet.
  */
 async function add(projet: IProjet): Promise<IProjet> {
   console.log(projet);
@@ -67,7 +67,7 @@ async function add(projet: IProjet): Promise<IProjet> {
   }
   
   /**
-   * Mets à jour un admin.
+   * Mets à jour un projet.
    */
   async function update(projet: IProjet): Promise<IProjet> {
     await connect(process.env.MONGODB_URI!, {dbName:'Projet'});
@@ -90,7 +90,7 @@ async function add(projet: IProjet): Promise<IProjet> {
   }
 
   /**
-   * Supprimer un admin.
+   * Supprimer un projet.
    */
   async function delete_(id: string): Promise<void> {
     await connect(process.env.MONGODB_URI!, {dbName:'Projet'});

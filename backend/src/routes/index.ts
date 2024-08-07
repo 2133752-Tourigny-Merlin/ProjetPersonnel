@@ -51,7 +51,6 @@ ImageRouter.post(Paths.Image.Add, upload.single('image'), imageController.postIm
 
 //** Stats **/
 
-// Add AdminRouter
 apiRouter.use(Paths.Projet.Base, ProjetRouter);
 apiRouter.use(Paths.Image.Base, ImageRouter);
 

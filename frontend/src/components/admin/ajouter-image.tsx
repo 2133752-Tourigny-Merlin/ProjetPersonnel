@@ -1,3 +1,10 @@
+/**
+ * Fichier ajout-image.tsx
+ * @author Merlin Tourigny
+ * Date: 2024/08/07
+ * 
+ * Formulaire d'ajout d'image
+ */
 import React, { useState } from 'react';
 import Axios from '../../api';
 import Button from '@mui/material/Button';
@@ -5,6 +12,11 @@ import Input from '@mui/material/OutlinedInput';
 import Dialog from '@mui/material/Dialog';
 import "./ajouter-image.css";
 
+/**
+ * composant d'ajoutImage
+ * 
+ * @returns le formulaire d'ajout d'image
+ */
 export default function AjouterImage({ refresh, setMessage, setCouleur }:
   { refresh: any, setMessage: any, setCouleur: any }) {
 
@@ -13,18 +25,30 @@ export default function AjouterImage({ refresh, setMessage, setCouleur }:
   const [affichage, setAffichage] = useState("none");
   const [ouvrirDialog, setOuvrirDialog] = useState(false);
 
+ /**
+  * fonction onChangeHandler qui change l'image sélectionné
+  *  @param event l'event du formulaire qui contient l'image
+  */
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
       setImageSelectioner(event.target.files[0]);
-      console.log("Selected file:", event.target.files[0]);
     }
   }
 
+ /**
+  * fonction getExtension qui récupère l'extension de l'image
+  *  @param nomImage: string nom de l'image
+  *  @returns retourne l'extensio de l'image
+  */
   function getExtension(nomImage: string): string {
     const parts = nomImage.split('.');
     return parts[parts.length - 1].toLowerCase();
   }
 
+ /**
+  * fonction handleAjoutImage qui ajoute un image par la route
+  *  retourne un message d'erreur ou de success
+  */
   function handleAjoutImage() {
     if (imageSelectioner != null && extensions.includes(getExtension(imageSelectioner.name))) {
       const formData = new FormData();
@@ -44,7 +68,6 @@ export default function AjouterImage({ refresh, setMessage, setCouleur }:
           setAffichage('none');
         })
         .catch(error => {
-          console.error('Error uploading image:', error);
           setMessage("Une erreur est survenue");
           setCouleur("error");
         });
@@ -55,7 +78,9 @@ export default function AjouterImage({ refresh, setMessage, setCouleur }:
     setImageSelectioner(null);
   }
   
-
+ /**
+  * Ferme le dialog de l'ajout d'image
+  */
   function fermerDialog() {
     setAffichage("none");
     setOuvrirDialog(false);

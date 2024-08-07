@@ -22,6 +22,6 @@ export default {
     GetOne: "/:id", //good
     GetRecent: "/recent/last", //good
     Add: '/', //good
-    Delete: '/:id',
+    Delete: '/:id', //good
   },
 } as const;

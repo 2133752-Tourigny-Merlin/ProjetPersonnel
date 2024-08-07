@@ -1,3 +1,10 @@
+/**
+ * Fichier ajout.composants.tsx
+ * @author Merlin Tourigny
+ * Date: 2024/08/07
+ * 
+ * Formulaire d'ajout
+ */
 import React, { FormEvent, useState } from 'react';
 import '../home.css';
 import './formulaire-ajout.css';
@@ -9,7 +16,16 @@ import SupprimerImage from './supprimer-image';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../firebase';
 
+/**
+ * composant d'ajout
+ * 
+ * @returns le formulaire d'ajout
+ */
 export const Ajout = () => {
+
+  /**
+  * Paramètres du projet
+  */
   const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
@@ -20,16 +36,26 @@ export const Ajout = () => {
   const [erreurDescription, setErreurDescription] = useState('');
   const [date, setDate] = useState('');
 
+  /**
+  * Message d'erreur
+  */
   const [message, setMessage] = useState('');
   const [affichage, setAffichage] = useState("none");
   const [couleur, setCouleur] = useState<AlertColor>('error');
   
   const navigate = useNavigate();
 
+ /**
+ * fonction d'envoyer qui sers à envoyer les informations au Backend
+ * @param evenement: FromEvent
+ */
   const envoyer = async (evenement: FormEvent) => {
     evenement.preventDefault();
     setAffichage('block');
 
+    /**
+     * Payload qui contient l'objet à envoyer
+     */
     const payload = {
       Projet: {
         id: String,
@@ -45,18 +71,19 @@ export const Ajout = () => {
 
     try {
       const response = await Axios.post('/api/Projet', payload);
-      console.log('Article added:', response.data);
       reinitialiserFormulaire();
       setMessage("L'article a été ajouté avec succès");
       setCouleur("success");
       navigate('/');
     } catch (error) {
-      console.error('Error adding article:', error);
       setMessage("L'article n'a pas été ajouté du à une erreur de notre part.");
       setCouleur("error");
     }
   };
 
+    /*
+    * Réinitialise les valeurs des champs du formulaire
+    */
   const reinitialiserFormulaire = () => {
     setTitre('');
     setDescription('');
@@ -64,15 +91,31 @@ export const Ajout = () => {
     miseAJourImages();
   };
 
+  /**
+  * Change le message de l'alerte.
+  * 
+  * @param newMessage 
+  */
   function messageRetroaction(newMessage: string) {
     setMessage(newMessage);
     setAffichage('block');
   };
-  
+
+  /**
+  * Change la couleur de l'alerte.
+  * 
+  * @param couleur La couleur.
+  */
   function alertCouleur(couleur: AlertColor) {
     setCouleur(couleur);
   }
 
+  /**
+  * fonction getImageAjouter qui ajoute l'image à la base de donnée.
+  *  
+  * Mets le nom dans la variable imageNom
+  * Mets l'id dans la variable inageId.
+  */
   const getImageAjouter = () => {
     Axios.get('/api/Image/recent/last')
       .then(res => {
@@ -85,11 +128,21 @@ export const Ajout = () => {
       });
   };
 
+  /**
+  * fonction qui met a jour l'image de l'article
+  *  
+  * retire le nom de l'image supprimé.
+  * retire l'id de l'image supprimé.
+  */
   const miseAJourImages = () => {
     setImageId("");
     setImageNom("");
   };
 
+  /**
+  * fonction qui logout le user
+  *  retourne a la page d'accueil
+  */
   const handleLogout = async () => {
     try {
       await logout();

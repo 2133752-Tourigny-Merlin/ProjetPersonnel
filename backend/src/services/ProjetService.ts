@@ -5,19 +5,19 @@ import HttpStatusCodes from '../common/HttpStatusCodes';
 
 // **** Variables **** //
 
-export const VELO_NOT_FOUND_ERR = 'Velo non trouvé';
+export const PROJET_NOT_FOUND_ERR = 'Projet non trouvé';
 
 // **** Functions **** //
 
 /**
- * Lire toutes les Factures.
+ * Lire tout les projets.
  */
 function getAll(): Promise<IProjet[]> {
   return ProjetRepo.getAll();
 }
 
 /*
-* Lire le velo ayant l'id passé en paramètre
+* Lire un projet selon l'id
 */
 function getOne(id: string): Promise<IProjet | null> {
     return ProjetRepo.getOne(id);
@@ -40,32 +40,31 @@ function getType(type: string): Promise<IProjet[]> {
 }
 
 /**
- * Ajouter d'un velo.
+ * Ajouter d'un projet.
  */
 function add(projet: IProjet): Promise<IProjet> {
   return ProjetRepo.add(projet);
 }
 
 /**
- * Mise à jour d'un velo.
+ * Mise à jour d'un projet.
  */
 async function update(projet: IProjet): Promise<IProjet> {
   const persists = await ProjetRepo.persists(projet._id!);
   if (!persists) {
-    throw new RouteError(HttpStatusCodes.NOT_FOUND, VELO_NOT_FOUND_ERR);
+    throw new RouteError(HttpStatusCodes.NOT_FOUND, PROJET_NOT_FOUND_ERR);
   }
   return ProjetRepo.update(projet);
 }
 
 /**
- * Supprimer un velo par son id.
+ * Supprimer un projet par son id.
  */
 async function delete_(id: string): Promise<void> {
     const persists = await ProjetRepo.persists(id);
     if (!persists) {
-      throw new RouteError(HttpStatusCodes.NOT_FOUND, VELO_NOT_FOUND_ERR);
+      throw new RouteError(HttpStatusCodes.NOT_FOUND, PROJET_NOT_FOUND_ERR);
     }
-    // Supprimer le velo
     return ProjetRepo.delete_(id);
   }
 

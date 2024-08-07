@@ -1,4 +1,4 @@
-import 'dotenv/config'; // This automatically loads the environment variables
+import 'dotenv/config';
 
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
@@ -20,7 +20,6 @@ import mongoose from 'mongoose';
 // **** Variables **** //
 const uri = process.env.MONGODB_URI;
 const app = express();
-//const server = app.listen(process.env.PORT)
 
 if (!uri) {
   throw new Error('MONGODB_URI is not defined');
@@ -33,11 +32,9 @@ mongoose.connect(uri)
 
 // **** Setup **** //
 app.use(cors());
-// Basic middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
-// Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
   app.use(morgan('dev'));
 }
@@ -89,12 +86,6 @@ app.get('/users', (_: Request, res: Response) => {
   return res.sendFile('users.html', { root: viewsDir });
 });
 
-/*
-app.use(morgan('tiny'))
-app.use(bodyParser.json())
-app.use(bodyParser.json({type:'application/vnd.api+json'}))
-app.use(bodyParser.urlencoded({extended: false}))
-*/
 // **** Export default **** //
 
 export default app;
