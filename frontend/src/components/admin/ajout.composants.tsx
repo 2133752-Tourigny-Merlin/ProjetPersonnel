@@ -72,11 +72,11 @@ export const Ajout = () => {
     try {
       const response = await Axios.post('/api/Projet', payload);
       reinitialiserFormulaire();
-      setMessage("L'article a été ajouté avec succès");
+      setMessage("Le projet a été ajouté avec succès");
       setCouleur("success");
       navigate('/');
     } catch (error) {
-      setMessage("L'article n'a pas été ajouté du à une erreur de notre part.");
+      setMessage("Le projet n'a pas été ajouté du à une erreur de notre part.");
       setCouleur("error");
     }
   };
@@ -129,7 +129,7 @@ export const Ajout = () => {
   };
 
   /**
-  * fonction qui met a jour l'image de l'article
+  * fonction qui met a jour l'image du projet
   *  
   * retire le nom de l'image supprimé.
   * retire l'id de l'image supprimé.
@@ -176,7 +176,7 @@ export const Ajout = () => {
             </div>
           </Alert>
         </div>
-        <label className='texte'>Le titre de l'article:</label>
+        <label className='texte'>Le titre du projet:</label>
         <TextField
           id="titre"
           label="Titre"
@@ -189,7 +189,7 @@ export const Ajout = () => {
           margin="normal"
           onChange={(e) => setTitre(e.target.value)}
         />
-        <label className='texte'>Une courte description de l'article:</label>
+        <label className='texte'>Une courte description du projet:</label>
         <TextField
           id='description'
           label="Courte Description"

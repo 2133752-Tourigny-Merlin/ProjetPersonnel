@@ -12,7 +12,7 @@ useEffect(() => {
     // si loading = true, ça veut dire que le firebase n'est pas encore prêt.
     if (loading) return;
     // si user est null, l'utilisateur n'est pas authentifié
-    if (!user) navigate('/login');
+    if (!user) navigate('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [user, loading]);
 

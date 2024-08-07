@@ -34,11 +34,13 @@ export const Peintures = () => {
   }
 
   useEffect(() => {
+
+    /**
+     * Récupère tout les projets selon le type
+     */
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/api/Projet/type/Peinture');
-        console.log('Fetched projects:', response.data);
-        // Extract the projects array from the response data
         setProjects(response.data.Projet || []);
         setLoading(false);
       } catch (err) {
@@ -54,7 +56,6 @@ export const Peintures = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  console.log('Projects state:', projects);
     return (
         <>
             <header>

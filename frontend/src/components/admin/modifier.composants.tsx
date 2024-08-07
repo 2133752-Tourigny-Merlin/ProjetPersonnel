@@ -200,7 +200,6 @@ const Modifier: React.FC<{}> = () => {
             </nav>
         </header>
       <form onSubmit={envoyer}>
-        <h1 className='titre'>Modifier un article</h1>
         <div style={{ display: affichage, marginBottom: 20, color: 'white' }}>
           <Alert id='message-couleur' severity={couleur}>
             <div id='message-liste-document'>
@@ -208,7 +207,7 @@ const Modifier: React.FC<{}> = () => {
             </div>
           </Alert>
         </div>
-        <label className='texte'>Le titre de l'article:</label>
+        <label className='texte'>Le titre du projet:</label>
         <TextField
           id="titre"
           label="Titre"
@@ -263,7 +262,6 @@ const Modifier: React.FC<{}> = () => {
             <MenuItem value="Sculpture">Sculpture</MenuItem>
             <MenuItem value="Dessin">Dessin</MenuItem>
             <MenuItem value="Peinture">Peinture</MenuItem>
-            {/* Add more options as needed */}
           </Select>
         </FormControl>
 
